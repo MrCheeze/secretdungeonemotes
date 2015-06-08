@@ -86,7 +86,7 @@ var sde = (function(){
 		// Do it!
 
 		var App = wnd.App, sdeEmoteList = [], sdeChannels = {},
-			sdeFfzList = {}, hasBTTV = ("BTTVLOADED" in window && window.BTTVLOADED)
+			sdeFfzList = {}, bttvFfzList = {}, hasBTTV = ("BTTVLOADED" in window && window.BTTVLOADED)
 
 		// Main methods
 
