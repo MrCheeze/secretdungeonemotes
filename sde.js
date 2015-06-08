@@ -28,7 +28,7 @@ var sde = (function(){
 
 	var SDE_VERSION = "2.0.7";
 
-	var wnd = window, tries = 0, sdEmoticons = [], sdeFfzOffset = 900000, sdeFfzName = "999999", usingFfz = false
+	var wnd = window, tries = 0, sdEmoticons = [], sdeFfzOffset = 900000, sdeFfzName = "999999", bttvFfzName = "999998", usingFfz = false
 
 	var console = wnd.console
 
@@ -212,11 +212,13 @@ var sde = (function(){
 				name: "electricnet"
 			}
 			
-			var list = []
+			var list_sde = []
+			var list_bttv = []
 			for(var i = 0; i < sdEmoticons.length; i++){
 				var sdem = sdEmoticons[i]
 				var regex = new RegExp("\\b" + sdem.name + "\\b", "g")
 				var id = sdeFfzOffset + i
+				var list = sdem.bttv ? list_bttv : list_sde
 				list.push({
 					css: null,
 					height: sdem.height,
@@ -230,7 +232,8 @@ var sde = (function(){
 					width: sdem.width
 				})
 			}
-			sdeFfzList = list
+			sdeFfzList = list_sde
+			bttvFfzList = list_bttv
 		}
 
 		var updateEmoticonCSS = function(){
@@ -262,9 +265,9 @@ var sde = (function(){
 				convertEmoticonListToFFZ()
 
 				var ffz = wnd.ffz
-				var ffzSet = {
+				var ffzSet_sde = {
 					_type: 0,
-					count: sdEmoticons.length,
+					count: sdeFfzList.length,
 					css: null,
 					description: null,
 					emoticons: sdeFfzList,
@@ -273,14 +276,32 @@ var sde = (function(){
 					title: "Secret Dungeon Emotes",
 					users: []
 				}
+				var ffzSet_bttv = {
+					_type: 0,
+					count: bttvFfzList.length,
+					css: null,
+					description: null,
+					emoticons: bttvFfzList,
+					icon: null,
+					id: bttvFfzName,
+					title: "BetterTTV Emotes",
+					users: []
+				}
 
 				// Register handles
-				ffz.emote_sets[sdeFfzName] = ffzSet
+				ffz.emote_sets[sdeFfzName] = ffzSet_sde
 				ffz.global_sets.push(sdeFfzName)
 				ffz.default_sets.push(sdeFfzName)
-				ffz._load_set_json(sdeFfzName, void 0, ffzSet)
+				ffz._load_set_json(sdeFfzName, void 0, ffzSet_sde)
+				
+				ffz.emote_sets[bttvFfzName] = ffzSet_bttv
+				ffz.global_sets.push(bttvFfzName)
+				ffz.default_sets.push(bttvFfzName)
+				ffz._load_set_json(bttvFfzName, void 0, ffzSet_bttv)
 
 				ext.log("Added set " + sdeFfzName + " to FrankerFaceZ")
+				
+				ext.log("Added set " + bttvFfzName + " to FrankerFaceZ")
 			} else {
 				ext.log("No FFZ, we're going solo")
 
