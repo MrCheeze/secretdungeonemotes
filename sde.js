@@ -212,10 +212,14 @@ var sde = (function(){
 				name: "electricnet"
 			}
 
+			function escapeRegExp(str) {
+				return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+			}
+			
 			var list = []
 			for(var i = 0; i < sdEmoticons.length; i++){
 				var sdem = sdEmoticons[i]
-				var regex = new RegExp("\\b" + sdem.name + "\\b", "g")
+				var regex = new RegExp("\\b" + escapeRegExp(sdem.name) + "\\b", "g")
 				var id = sdeFfzOffset + i
 				list.push({
 					css: null,
