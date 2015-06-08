@@ -23,10 +23,6 @@
  
  // BIG shoutouts to the original TPP chat filter script. Good pointers.
 
-function escapeRegExp(str) {
-	return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
-}
-
 var sde = (function(){
 	"use strict";
 
@@ -188,7 +184,7 @@ var sde = (function(){
 			var list = []
 			for(var i = 0; i < sdEmoticons.length; i++){
 				var sdem = sdEmoticons[i]
-				var regex = new RegExp("\\b" + escapeRegExp(sdem.name) + "\\b", "g")
+				var regex = new RegExp("\\b" + sdem.name + "\\b", "g")
 				var img = {
 					width: sdem.width,
 					height: sdem.height,
@@ -219,7 +215,7 @@ var sde = (function(){
 			var list = []
 			for(var i = 0; i < sdEmoticons.length; i++){
 				var sdem = sdEmoticons[i]
-				var regex = new RegExp("\\b" + escapeRegExp(sdem.name) + "\\b", "g")
+				var regex = new RegExp("\\b" + sdem.name + "\\b", "g")
 				var id = sdeFfzOffset + i
 				list.push({
 					css: null,
